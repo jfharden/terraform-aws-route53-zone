@@ -47,3 +47,14 @@ resource "aws_route53_zone" "this" {
 
   tags = local.tags
 }
+
+resource "aws_route53_record" "delegated" {
+  count = length(var.delegated_sub_domains)
+
+  zone_id = aws_route53_zone.this.zone_id
+  name    = "${var.delegated_sub_domains[count.index].subdomain}.${aws_route53_zone.this.name}"
+  type    = "NS"
+  ttl     = var.ttl
+
+  records = var.delegated_sub_domains[count.index].name_servers
+}

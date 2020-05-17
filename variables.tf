@@ -1,7 +1,7 @@
 variable "delegated_sub_domains" {
-  type        = map(list(string))
-  description = "Map of `subdomain => [ns1, ns2, .. nsN]`"
-  default     = {}
+  type        = list(object({ subdomain = string, name_servers = list(string) }))
+  description = "List of objects with subdomain and name_server keys. e.g. `[{ subdomain = 'dev', name_servers=['8.8.8.8', '8.8.4.4'] }]` ***NOTE:*** Order is crucial, changing the order (including removing elements) will cause recreation"
+  default     = []
 }
 
 variable "environment" {
@@ -13,6 +13,12 @@ variable "tags" {
   type        = map
   description = "Additional tags to add to all taggable resources created"
   default     = {}
+}
+
+variable "ttl" {
+  type        = number
+  description = "TTL to apply to delegated subdomain NS records"
+  default     = 300
 }
 
 variable "vpc_name" {
