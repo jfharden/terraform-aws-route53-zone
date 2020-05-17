@@ -58,3 +58,44 @@ resource "aws_route53_record" "delegated" {
 
   records = var.delegated_sub_domains[count.index].name_servers
 }
+
+resource "aws_acm_certificate" "wildcard" {
+  count = var.create_acm_cert ? 1 : 0
+
+  domain_name = var.zone_name
+
+  subject_alternative_names = [
+    "*.${var.zone_name}"
+  ]
+
+  validation_method = "DNS"
+
+  tags = merge(
+    { "Name" : "${var.zone_name}" },
+    local.tags
+  )
+
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_route53_record" "wildcard_cert_validation" {
+  count = var.create_acm_cert ? 1 : 0
+
+  name    = aws_acm_certificate.wildcard[0].domain_validation_options.0.resource_record_name
+  type    = aws_acm_certificate.wildcard[0].domain_validation_options.0.resource_record_type
+  zone_id = aws_route53_zone.this.zone_id
+  records = [aws_acm_certificate.wildcard[0].domain_validation_options.0.resource_record_value]
+  ttl     = 60
+}
+
+resource "aws_acm_certificate_validation" "cert_validation" {
+  count = var.create_acm_cert ? 1 : 0
+
+  certificate_arn = aws_acm_certificate.wildcard[0].arn
+  validation_record_fqdns = [
+    aws_route53_record.wildcard_cert_validation[0].fqdn,
+  ]
+}
