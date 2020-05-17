@@ -6,6 +6,7 @@ Create a route53 hosted zone, either public or private, and optionally create de
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| create\_acm\_cert | If set to true an ACM SSL certificate will be generated for the apex domain and wildcard under it | `bool` | `true` | no |
 | delegated\_sub\_domains | List of objects with subdomain and name\_server keys. e.g. `[{ subdomain = 'dev', name_servers=['8.8.8.8', '8.8.4.4'] }]` ***NOTE:*** Order is crucial, changing the order (including removing elements) will cause recreation | `list(object({ subdomain = string, name_servers = list(string) }))` | `[]` | no |
 | environment | Deployment environment (e.g. prod, test, dev) | `string` | n/a | yes |
 | tags | Additional tags to add to all taggable resources created | `map` | `{}` | no |
@@ -17,6 +18,7 @@ Create a route53 hosted zone, either public or private, and optionally create de
 
 | Name | Description |
 |------|-------------|
+| acm\_certificate\_arn | ARN of the created wildcard and apex ACM SSL certificate, or null if not created |
 | name\_servers | List of name servers for the hosted zone |
 | zone\_id | Route 53 hosted zone id |
 
