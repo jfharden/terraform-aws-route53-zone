@@ -8,6 +8,11 @@ output "name_servers" {
   value       = aws_route53_zone.this.name_servers
 }
 
+output "route53_cert_validation_fqdn" {
+  description = "FQDN of the route53 ACM certificate validation record"
+  value       = aws_route53_record.wildcard_cert_validation[0].fqdn
+}
+
 output "zone_id" {
   description = "Route 53 hosted zone id"
   value       = aws_route53_zone.this.zone_id
