@@ -20,5 +20,6 @@ Create a route53 hosted zone, either public or private, and optionally create de
 |------|-------------|
 | acm\_certificate\_arn | ARN of the created wildcard and apex ACM SSL certificate, or null if not created |
 | name\_servers | List of name servers for the hosted zone |
+| route53\_cert\_validation\_fqdn | FQDN of the route53 ACM certificate validation record |
 | zone\_id | Route 53 hosted zone id |
 
