@@ -3,6 +3,11 @@ output "acm_certificate_arn" {
   value       = var.create_acm_cert ? aws_acm_certificate.wildcard[0].arn : null
 }
 
+output "acm_certificate_validation_certificate_arn" {
+  description = "ARN of the created wildcard and apex ACM SSL certificate as an output from the aws_acm_certificate_validation resource."
+  value       = var.create_acm_cert ? aws_acm_certificate_validation.cert_validation[0].certificate_arn : null
+}
+
 output "name_servers" {
   description = "List of name servers for the hosted zone"
   value       = aws_route53_zone.this.name_servers
