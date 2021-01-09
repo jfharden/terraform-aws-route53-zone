@@ -2,6 +2,18 @@
 
 Create a route53 hosted zone, either public or private, and optionally create delegated subdomains
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| aws | ~> 3.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | ~> 3.0 |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
