@@ -94,6 +94,6 @@ resource "aws_route53_record" "wildcard_cert_validation" {
 resource "aws_acm_certificate_validation" "cert_validation" {
   count = var.create_acm_cert ? 1 : 0
 
-  certificate_arn = aws_acm_certificate.wildcard[0].arn
+  certificate_arn         = aws_acm_certificate.wildcard[0].arn
   validation_record_fqdns = [aws_route53_record.wildcard_cert_validation[0].fqdn]
 }

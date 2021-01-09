@@ -6,6 +6,7 @@ Create a route53 hosted zone, either public or private, and optionally create de
 
 | Name | Version |
 |------|---------|
+| terraform | >= 0.12 |
 | aws | ~> 3.0 |
 
 ## Providers
