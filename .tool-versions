@@ -1,3 +1,3 @@
-terraform 0.12.25
+terraform 0.13.6
 terraform-docs v0.9.1
-tflint 0.16.0
+tflint 0.21.0
