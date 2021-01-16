@@ -71,10 +71,9 @@ resource "aws_acm_certificate" "wildcard" {
   validation_method = "DNS"
 
   tags = merge(
-    { "Name" : "${var.zone_name}" },
+    { "Name" : var.zone_name },
     local.tags
   )
-
 
   lifecycle {
     create_before_destroy = true
